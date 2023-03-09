@@ -1,0 +1,221 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-2">Settings</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div>
+      <mat-card class="box">
+        <mat-card-content>
+          <div class="col-md-12">
+            <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
+              <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                  <form [formGroup]="firstFormGroup">
+                    <div class="row">
+                      <div class="col">
+                        <ng-template matStepLabel>Fill out your Details</ng-template>
+                        <mat-form-field class="sidecomponent" appearance="outline">
+                          <mat-label>First Name</mat-label>
+                          <input matInput placeholder="First name" formControlName="Firstname">
+                          <mat-error
+                          *ngIf="firstFormGroup.controls['Firstname'].errors && firstFormGroup.controls['Firstname'].hasError('required')">
+                          Firstname is required
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col">
+                        <mat-form-field class="sidecomponent" appearance="outline">
+                          <mat-label>Last Name</mat-label>
+                          <input matInput placeholder="Last name" formControlName="Lastname">
+                          <mat-error
+                            *ngIf="firstFormGroup.controls['Lastname'].errors && firstFormGroup.controls['Lastname'].hasError('required')">
+                            Lastname is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col">
+                        <mat-form-field class="sidecomponent" appearance="outline">
+                          <mat-label>Date of Birth</mat-label>
+                          <input matInput [matDatepicker]="picker" placeholder="Date of Birth" readonly="true"
+                            formControlName="DateofBirth">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-error *ngIf="firstFormGroup.controls['DateofBirth'].errors">
+                            DateofBirth is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row" [formGroup]="firstFormGroup">
+                      <div class="col">
+                        <mat-form-field class="sidecomponent" appearance="outline">
+                          <mat-label>Gender</mat-label>
+                          <mat-select formControlName="Gender">
+                            <mat-option value="Male(M)">Male(M)</mat-option>
+                            <mat-option value="Feamle(F)">Female(F)</mat-option>
+                            <mat-option value="Others">Others</mat-option>
+                          </mat-select>
+                          <mat-error
+                            *ngIf="firstFormGroup.controls['Gender'].errors && firstFormGroup.controls['Gender'].hasError('required')">
+                            Please Select Gender
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col">
+                        <mat-form-field class="sidecomponent" appearance="outline">
+                          <mat-label>Phone Number</mat-label>
+                          <input matInput placeholder="Ph.No" formControlName="PhoneNumber">
+                          <mat-error
+                          *ngIf="firstFormGroup.controls['PhoneNumber'].errors && firstFormGroup.controls['PhoneNumber'].hasError('required')">
+                          PhoneNumber is required
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col">
+                        <mat-form-field class="sidecomponent" appearance="outline">
+                          <mat-label>Parent Mobile Number</mat-label>
+                          <input matInput placeholder="Ph.No" formControlName="ParentMobileNumber">
+                          <mat-error
+                          *ngIf="firstFormGroup.controls['ParentMobileNumber'].errors && firstFormGroup.controls['ParentMobileNumber'].hasError('required')">
+                          Parent Mobile Number is required
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex" style="display: flex; justify-content:flex-end">
+                      <button class="btn btn-primary" mat-button matStepperNext type="button">Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="firstFormGroup" label="Fill out your address">
+                  <div [formGroup]="firstFormGroup">
+                    <form [formGroup]="firstFormGroup">
+                      <div class="row">
+                        <div class="col">
+                          <mat-form-field class="sidecomponent" appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select formControlName="country" name="country" [errorStateMatcher]="matcher">
+                              <mat-option *ngFor="let country of countries" [value]="country.shortName">
+                                {{ country.name }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="country.hasError('required')">Please select a country.</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col">
+                          <mat-form-field class="sidecomponent" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select formControlName="state" name="state" [errorStateMatcher]="matcher">
+                              <mat-option *ngFor="let state of states" [value]="state">
+                                {{ state }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="state.hasError('required')">Please select a state.</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col">
+                          <mat-form-field class="sidecomponent" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <mat-select formControlName="city" name="city" [errorStateMatcher]="matcher">
+                              <mat-option *ngFor="let city of cities" [value]="city">
+                                {{ city }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="city.hasError('required')">Please select a city.</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <mat-form-field class="sidecomponent" appearance="outline">
+                            <mat-label>Address Line 1</mat-label>
+                            <input matInput formControlName="AddressLine1" placeholder="Ex. 1 Main St, New York, NY"
+                              >
+                              <mat-error *ngIf="firstFormGroup.controls['AddressLine1'].errors">
+                                Address Line 1 is required
+                              </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col">
+                          <mat-form-field class="sidecomponent" appearance="outline">
+                            <mat-label>Address Line 2</mat-label>
+                            <input matInput formControlName="AddressLine2" placeholder="Ex. 1 Main St, New York, NY"
+                              >
+                              <mat-error *ngIf="firstFormGroup.controls['AddressLine2'].errors">
+                                Address Line 2 is required
+                              </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col">
+                          <mat-form-field class="sidecomponent" appearance="outline">
+                            <mat-label>PinCode</mat-label>
+                            <input matInput formControlName="PinCode" placeholder="Ex. 560025">
+                            <mat-error *ngIf="firstFormGroup.controls['PinCode'].errors">
+                              PinCode is required
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="d-grid gap-2 d-md-flex" style="display: flex; justify-content:flex-end">
+                        <button class="btn btn-danger" mat-button matStepperPrevious type="button">Back</button>
+                        <button class="btn btn-primary" mat-button matStepperNext type="button">Next</button>
+                      </div>
+                    </form>
+                  </div>
+                </mat-step>
+                <mat-step [stepControl]="firstFormGroup" label="Fill out your Education Details">
+                  <!-- <ng-template matStepLabel>Education Details</ng-template> -->
+                  <div [formGroup]="firstFormGroup" class="row">
+                    <div class="col">
+                      <mat-form-field class="sidecomponent" appearance="outline">
+                        <mat-label>SSC Percentage</mat-label>
+                        <input matInput placeholder="SSC Percentage" formControlName="SSCPercentage">
+                        <mat-error *ngIf="firstFormGroup.controls['SSCPercentage'].errors">
+                          SSCPercentage is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field class="sidecomponent" appearance="outline">
+                        <mat-label>Inter Percentage</mat-label>
+                        <input matInput placeholder="Inter Percentage" formControlName="InterPercentage">
+                        <mat-error *ngIf="firstFormGroup.controls['InterPercentage'].errors">
+                          InterPercentage is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field class="sidecomponent" appearance="outline">
+                        <mat-label>Degree</mat-label>
+                        <mat-select formControlName="Degree">
+                          <mat-option value="B.Tech/B.E">B.Tech/B.E</mat-option>
+                          <mat-option value="M.Tech/M.E">M.Tech/M.E</mat-option>
+                          <mat-option value="BCA">BCA</mat-option>
+                          <mat-option value="MCA">MCA</mat-option>
+                          <mat-option value="BSC">BSC</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="firstFormGroup.controls['Degree'].errors">
+                          Please Select Degree
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field class="sidecomponent" appearance="outline">
+                        <mat-label>Degree Percentage</mat-label>
+                        <input matInput placeholder="Degree Percentage" formControlName="DegreePercentage">
+                        <mat-error *ngIf="firstFormGroup.controls['DegreePercentage'].errors">
+                          DegreePercentage is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="d-grid gap-2 d-md-flex" style="display: flex; justify-content:flex-end">
+                    <button class="btn btn-danger" mat-button matStepperPrevious type="button">Back</button>
+                    <button class="btn btn-primary" mat-button (click)="onSubmit()" [disabled]="!firstFormGroup.valid" type="button">Submit</button>
+                  </div>
+                </mat-step>
+              </mat-horizontal-stepper>
+            </form>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

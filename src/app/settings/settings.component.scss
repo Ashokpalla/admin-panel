@@ -1,0 +1,49 @@
+// @import "../home/home.component.scss";
+.page {
+  color: white;
+  padding: 0 1rem;
+  background: #f1f5f9;
+  &__box {
+    min-height: 120px;
+    background: #1e293b;
+    margin: 0 -1rem;
+    font-size: 36px;
+  }
+  &__content {
+    min-height: calc(100vh - 178px);
+    border-radius: 10px;
+    margin-top: -2rem;
+    background: white;
+    color: black;
+    font-size: 1rem;
+    .mat-form-field[_ngcontent-ygw-c125] {
+      display: inline-flex;
+      position: revert;
+      text-align: left;
+      width: 230px;
+      padding-left: 100px;
+  }
+  }
+.mat-stepper-horizontal {
+  margin-top: 0px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 0px;
+}
+
+.sidecomponent{
+  width: 230px;
+}
+
+example-card{
+  width: 250px;
+}
+
+.box{
+  position: relative;
+
+  /* box-shadow: 5px 10px red; */
+}
+}
+

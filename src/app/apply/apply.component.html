@@ -1,0 +1,110 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-2">Apply For Leave</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div class="page__content-data">
+      <mat-card class="example-card" layout="row" layout-align="center center">
+        <mat-card-content>
+          <div class="col-md-12">
+            <form [formGroup]="startEndDatesForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col">
+                  <mat-form-field class="sidecomponent" appearance="outline">
+                    <mat-label>Leave Type</mat-label>
+                    <mat-select formControlName="LeaveType">
+                      <mat-option value="Privilege Leave(PL)">Privilege Leave(PL)</mat-option>
+                      <mat-option value="Sick Leave(SL)">Sick Leave(SL)</mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="startEndDatesForm.controls['LeaveType'].errors && startEndDatesForm.controls['LeaveType'].hasError('required')">
+                      LeaveType is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field class="sidecomponent" appearance="outline">
+                    <mat-label>Applied Date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Applied Date" formControlName="AppliedDate"
+                      readonly="true">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <label for="">
+                    <b>{{startDateLabel}} </b>
+                  </label>
+                  <mat-form-field class="sidecomponent" appearance="outline">
+                    <mat-label>Start Date</mat-label>
+                    <input matinput matInput [max]="startEndDatesForm.controls['endDate'].value"
+                      formControlName="startDate" (dateChange)="startDateClicked()" [matDatepicker]="picker1">
+                    <mat-datepicker-toggle matSuffix [for]="picker1" #startDateToggle></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error *ngIf="startEndDatesForm.controls['startDate'].errors">
+                      Start Date is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <div class="row">
+                    <div class="col">
+                      <label for="">
+                        <b> {{endDateLabel}}</b>
+                      </label>
+                      <mat-form-field class="sidecomponent" appearance="outline">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [min]="startEndDatesForm.controls['startDate'].value" formControlName="endDate"
+                          (dateChange)="endDateClicked()" [matDatepicker]="picker2">
+                        <mat-datepicker-toggle matSuffix [for]="picker2" #endDateToggle></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <span class="warning"
+                          *ngIf="startEndDatesForm.controls['endDate'].value &&(startEndDatesForm.controls['endDate'].value < startEndDatesForm.controls['startDate'].value)">
+                          *Please insert a valid {{placeHolder}}
+                        </span>
+                        <mat-error *ngIf="startEndDatesForm.controls['endDate'].errors">
+                          End Date is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field class="sidecomponent" appearance="outline">
+                        <mat-label>No Of Days</mat-label>
+                        <input matInput formControlName="NoOfDays" value="{{startEndDatesForm.controls['days'].value}}"
+                          readonly="true">
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field class="sidecomponent" appearance="outline">
+                        <mat-label>Available Leaves</mat-label>
+                        <input matInput placeholder="Available Leaves" formControlName="availableleaves">
+                        <mat-error
+                          *ngIf="startEndDatesForm.controls['availableleaves'].errors && startEndDatesForm.controls['availableleaves'].hasError('required')">
+                          Available Leaves are required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="example-form" style="display: grid;">
+                <mat-form-field appearance="outline">
+                  <mat-label>Reason</mat-label>
+                  <!-- <input matInput placeholder="Reason" formControlName="reason"> -->
+                  <textarea matInput placeholder="Reason" formControlName="reason"></textarea>
+                  <mat-error
+                    *ngIf="startEndDatesForm.controls['reason'].errors && startEndDatesForm.controls['reason'].hasError('required')">
+                    Reason is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="d-grid gap-2 d-md-flex" style="display: flex; justify-content:flex-end">
+                <!-- <button class="btn btn-danger" type="button" (click)="onClear()">Cancel</button> -->
+                <button class="btn btn-primary" [disabled]="!startEndDatesForm.valid" type="button"
+                  (click)="onSubmit()">Apply</button>
+              </div>
+            </form>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
